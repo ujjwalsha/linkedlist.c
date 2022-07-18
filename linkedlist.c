@@ -1,5 +1,7 @@
 #include<stdio.h>
-#include<stdlib.>
+#include<conio.h>
+#include<stdlib.h>
+
 struct node{
     int info;
     struct node* ptr;
@@ -75,14 +77,79 @@ void insert_pos(){
 
 //deletion at beginning in linked list 
 void delete_begin(){
-    struct node* r;
-    if(START == NULL)
+  struct node* r;
+  if(START == NULL)
+    printf("list is empty");
+
+  else{
+    r = START;
+    START = START->ptr;
+    printf("deleted node is %d", r->info);
+    free(r);
+  }
+
+}
+
+
+//deletion at ending in linked list 
+void delete_end(){
+    struct node* temp, *r;
+    if(START == NULL){
         printf("list is empty");
-    else{
+        exit(0);
+    }
+
+    else if(START->ptr == NULL){
         r = START;
-        START = START->ptr;
+        printf("deleted element is %d", r->info);
         free(r);
     }
+    else{
+        r = START;
+        while(r->ptr != NULL){
+            temp = r;
+            r = r->ptr;
+        }
+        temp->ptr = NULL;
+        printf("deleted node is %d", r->info);
+        free(r);
+    }
+}
+
+
+//delete the node at specific position 
+
+void delete_pos(){
+
+    int i, pos;
+    struct node*temp, *r;
+
+    if(START == NULL){
+        printf("the list is empty");
+        exit(0);
+    }
+    else{
+        printf("enter your position delete a node: ");
+        scanf("%d", &pos);
+
+        if(pos == 0){
+            r = START;
+            START = START->ptr;
+            printf("deleted node is %d", r->info);
+            free(r);
+        }
+        else{
+            r = START;
+            for(i=0; i<pos; i++){
+                temp = r;
+                r = r->ptr;
+            }
+            temp->ptr = r->ptr; 
+            printf("deleted node is %d", r->info);
+            free(r);
+        }
+    }
+
 }
 
 //traversing in the linked list
@@ -133,13 +200,13 @@ void main(){
                 delete_begin();
                 break;
 
-            /*case 5:
+            case 5:
                 delete_end();
                 break;
 
             case 6:
                 delete_pos();
-                break;*/
+                break;
             case 7:
                 viewList();
                 break;
